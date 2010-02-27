@@ -1,3 +1,6 @@
 [submodule "lib/selectorgadget"]
 	path = lib/selectorgadget
 	url = git://github.com/mattpuchlerz/selectorgadget.git
+[submodule "lib/js-oo"]
+	path = lib/js-oo
+	url = git://github.com/visionmedia/js-oo.git
