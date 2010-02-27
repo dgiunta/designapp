@@ -1,0 +1,3 @@
+[submodule "lib/selectorgadget"]
+	path = lib/selectorgadget
+	url = git://github.com/mattpuchlerz/selectorgadget.git
