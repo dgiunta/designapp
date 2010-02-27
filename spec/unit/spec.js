@@ -4,14 +4,6 @@ describe 'DesignApp'
     DesignApp.should_not.be_null
   end
   
-  it 'should have a list of tools'
-    DesignApp.tools.should.be_an Array
-  end
-  
-  it 'should have a selected tool'
-    DesignApp.selectedTool.should_not.be_undefined
-  end
-  
   it 'should be able to initialize'
     DesignApp.initialize.should.be_a Function
   end
@@ -19,19 +11,30 @@ describe 'DesignApp'
   describe 'initializing'
   end
   
+  describe 'DesignApp.Toolbar'
+    
+    it 'should exist'
+      DesignApp.Toolbar.should_not.be_null
+    end
+    
+    it 'should have a list of tools'
+      DesignApp.Toolbar.tools.should.be_an Array
+    end
+    
+    it 'should have a selected tool'
+      DesignApp.Toolbar.selectedTool.should_not.be_undefined
+    end
+  
+  end
+  
   describe 'DesignApp.Tool'
   
-    before_each
-      DesignApp.tools = []
-    end
+    // before_each
+    //   DesignApp.Toolbar.tools = []
+    // end
     
     it 'should exist'
       DesignApp.Tool.should_not.be_null
-    end
-    
-    it 'should add itself to the list of DesignApp tools when initialized'
-      tool = new DesignApp.Tool()
-      DesignApp.tools.should.include tool
     end
     
     describe 'initialized'
@@ -40,6 +43,10 @@ describe 'DesignApp'
         tool = new DesignApp.Tool()
       end
       
+      it 'should add itself to the list of DesignApp tools when initialized'
+        DesignApp.Toolbar.tools.should.include tool
+      end
+    
       it 'should have an HTML element template'
         tool.elementTemplate.should.be '<li><img src=":icon"></li>'
       end
