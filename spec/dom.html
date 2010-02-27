@@ -1,24 +1,34 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
+		<title>EventWax Javascript Specs</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link type="text/css" rel="stylesheet" href="./lib/jspec.css" />
-		<script src="./lib/jspec.js"></script>
-		<script src="./lib/jspec.jquery.js"></script>
-		<script src="./lib/jspec.xhr.js"></script>
-		<script src="../lib/jquery.js"></script>
-		<script src="../lib/selectorgadget/lib/dom.js"></script>
-		<script src="../lib/designapp.js"></script>
-		<script src="unit/spec.helper.js"></script>
-		<script>
-			function runSuites() {
+		<script type="text/javascript" src="../lib/jquery.js"></script>
+		<script type="text/javascript" src="../lib/js-oo/lib/oo.js"></script>
+		<script type="text/javascript" src="../lib/selectorgadget/lib/dom.js"></script>
+		<script type="text/javascript" src="./lib/jspec.js"></script>
+		<script type="text/javascript" src="./lib/jspec.jquery.js"></script>
+		<script type="text/javascript" src="./lib/jspec.xhr.js"></script>
+		<script type="text/javascript" src="../lib/designapp.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
 				JSpec
-				.exec('unit/spec.js')
-				.run({ fixturePath: 'fixtures' })
-				.report()
-			}
+					.exec('unit/spec.js')
+					.run({ fixturePath: './fixtures' })
+					.report();
+			};
 		</script>
 	</head>
-	<body class="jspec" onLoad="runSuites();">
-		<div id="jspec-top"><h2 id="jspec-title">JSpec <em><script>document.write(JSpec.version)</script></em></h2></div>
+	<body class="jspec">
+		<div id="jspec-top">
+		  <h2 id="jspec-title">
+		    JSpec 
+		    <em><script type="text/javascript"> document.write(JSpec.version); </script></em>
+		  </h2>
+		</div>
 		<div id="jspec"></div>
 		<div id="jspec-bottom"></div>
 	</body>
