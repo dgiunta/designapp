@@ -13,14 +13,21 @@ describe 'DesignApp'
   end
   
   describe 'initializing'
-    
-    
   end
   
   describe 'DesignApp.Tool'
+  
+    before_each
+      DesignApp.tools = []
+    end
     
     it 'should exist'
       DesignApp.Tool.should_not.be_null
+    end
+    
+    it 'should add itself to the list of DesignApp tools when initialized'
+      tool = new DesignApp.Tool();
+      DesignApp.tools.should.include tool
     end
     
     describe 'DesignApp.Tool.Selector'
