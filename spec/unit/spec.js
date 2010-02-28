@@ -11,7 +11,7 @@ describe 'DesignApp'
   describe 'initializing'
   end
   
-  describe 'DesignApp.Toolbar'
+  describe '.Toolbar'
     
     it 'should exist'
       DesignApp.Toolbar.should_not.be_null
@@ -27,7 +27,7 @@ describe 'DesignApp'
   
   end
   
-  describe 'DesignApp.Tool'
+  describe '.Tool'
   
     // before_each
     //   DesignApp.Toolbar.tools = []
@@ -73,7 +73,7 @@ describe 'DesignApp'
       
     end
     
-    describe 'DesignApp.Tool.Selector'
+    describe '.Selector'
     
       before_each
         selector = new DesignApp.Tool.Selector()        
@@ -88,6 +88,20 @@ describe 'DesignApp'
         selector.icon.should.be 'selector.png'
       end
       
+    end
+    
+  end
+  
+  describe '.Palette'
+    
+    it 'should exist'
+      DesignApp.Palette.should_not.be_null
+    end
+    
+    describe 'when first created'
+      it 'should have a name'
+        new DesignApp.Palette().name.should.be ''
+      end
     end
     
   end
