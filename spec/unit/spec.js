@@ -28,10 +28,6 @@ describe 'DesignApp'
   end
   
   describe '.Tool'
-  
-    // before_each
-    //   DesignApp.Toolbar.tools = []
-    // end
     
     it 'should exist'
       DesignApp.Tool.should_not.be_null
@@ -99,9 +95,68 @@ describe 'DesignApp'
     end
     
     describe 'when first created'
-      it 'should have a name'
-        new DesignApp.Palette().name.should.be ''
+
+      before_each
+        palette = new DesignApp.Palette()
       end
+
+      it 'should have a name'
+        palette.name.should.be ''
+      end
+      
+      it 'should have a container element'
+        palette.container.should.be_an_instance_of jQuery
+        palette.container.should.have_class('palette')
+      end
+      
+      it 'should run the createMarkup method'
+        palette.should.receive('createMarkup')
+        palette.init();
+      end
+
+    end
+    
+    
+    describe '.Gradient'
+      before_each
+        gradient = new DesignApp.Palette.Gradient();
+      end
+      
+      it 'should exist'
+        DesignApp.Palette.Gradient.should_not.be_null
+      end
+      
+      it 'should have a name of "Gradient"'
+        gradient.name.should.be 'Gradient'
+      end
+      
+      describe 'defaults'
+
+        it 'should have a type of "linear"'
+          gradient.type.should.be "linear"
+        end
+      
+        it 'should have a start point'
+          gradient.start.should_not.be_null
+          gradient.start.color.should.be '#000'
+          gradient.start.pos.h.should.be 0
+          gradient.start.pos.v.should.be 0
+        end
+        
+        it 'should have an end point'
+          gradient.end.should_not.be_null
+          gradient.end.color.should.be '#fff'
+          gradient.end.pos.h.should.be 0
+          gradient.end.pos.v.should.be 100
+        end
+        
+      end
+      
+      
+      describe 'markup'
+        
+      end
+      
     end
     
   end
