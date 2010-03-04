@@ -190,6 +190,25 @@ describe 'DesignApp'
           gradient.end.pos.v.should.be 100
         end
         
+        it 'should have an empty list of color stops'
+          gradient.stops.should.eql []
+        end
+        
+      end
+
+      it 'should be able to add a color stop to the list of stops'
+        gradient.addStop()
+        gradient.stops.length.should.be 1
+      end
+      
+      describe 'color stops'
+        before_each
+          gradient.addStop()
+        end
+        
+        it 'should have a position'
+          // gradient.stops
+        end
       end
       
       describe 'markup'
