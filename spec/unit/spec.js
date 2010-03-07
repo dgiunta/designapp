@@ -152,9 +152,13 @@ describe 'DesignApp'
         palette.should.receive('createMarkup')
         palette.init();
       end
+      
+      it 'should have a reset function'
+        palette.should.respond_to "reset"
+      end
 
     end
-    
+        
     
     describe '.Gradient'
       
@@ -195,20 +199,73 @@ describe 'DesignApp'
         end
         
       end
+      
+      describe 'resetting'
+        
+        it 'should remove any stops'
+          gradient.createAndAddStop(20, "#ccc")
+          gradient.createAndAddStop(20, "#ccc")
+          gradient.createAndAddStop(20, "#ccc")
+          gradient.reset()
+          gradient.stops.should.be_empty
+        end
+        
+        it 'should set the start horizontal position to 0'
+          gradient.start.pos.h = 30
+          gradient.reset()
+          gradient.start.pos.h.should.eql 0
+        end
 
-      it 'should be able to add a color stop to the list of stops'
-        gradient.addStop()
-        gradient.stops.length.should.be 1
+        it 'should set the end horizontal position to 100'
+          gradient.end.pos.h = 80
+          gradient.reset()
+          gradient.end.pos.h.should.eql 100
+        end
+        
       end
       
       describe 'color stops'
+
         before_each
-          gradient.addStop()
+          gradient.stops = []
         end
         
-        it 'should have a position'
-          // gradient.stops
+        describe 'creating a new stop'
+
+          it 'should have a position'
+            stop = gradient.createStop(20)
+            stop.position.should.eql 20
+          end
+        
+          it 'should have a color'
+            stop = gradient.createStop(20, "#ccc")
+            stop.color.should.eql "#ccc"
+          end
+                  
         end
+        
+        describe 'adding a stop the stops list'
+        
+          it 'should add a stop the list of stops'
+            stop = gradient.createStop(20, "#ccc")
+            gradient.addStop(stop)
+            gradient.stops.length.should.eql 1
+          end
+          
+          it 'should put the stop in the correct location'
+            stop1 = gradient.createStop(10, "#bbb")
+            stop2 = gradient.createStop(20, "#aaa")
+            stop3 = gradient.createStop(30, "#ccc")
+            gradient.addStop(stop3)
+            gradient.addStop(stop1)
+            gradient.addStop(stop2)
+            gradient.stops[0].should.eql stop1
+            gradient.stops[1].should.eql stop2
+            gradient.stops[2].should.eql stop3
+          end
+                    
+        end
+        
       end
       
       describe 'markup'
