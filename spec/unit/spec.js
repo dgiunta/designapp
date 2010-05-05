@@ -279,4 +279,44 @@ describe 'DesignApp'
     
   end
 
+
+  
+  describe '.Style'
+    
+    it 'should exist'
+      DesignApp.Style.should_not.be_null
+    end
+    
+    it 'should have 0 rules'
+      DesignApp.Style.rules.should.be_empty
+    end
+    
+    
+    
+    describe '.Rule'
+      
+      it 'should exist'
+        DesignApp.Style.Rule.should_not.be_null
+      end
+      
+      describe 'when first creating'
+      
+        before_each
+          rule = new DesignApp.Style.Rule()
+        end
+        
+        it 'should have a blank selector'
+          rule.selector.should.be ''
+        end
+        
+        it 'should have 0 properties'
+          rule.properties.should.eql []
+        end
+      
+      end
+      
+    end
+    
+  end
+
 end
