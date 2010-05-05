@@ -120,6 +120,10 @@ describe 'DesignApp'
       it 'should have a specific name'
         selector.name.should.be 'selector'
       end
+      
+      it 'should have a reference to the DomPredictionHelper'
+        selector.predictionHelper.should.be_an_instance_of(DomPredictionHelper)
+      end
     
     end
   
