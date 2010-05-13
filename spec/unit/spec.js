@@ -343,7 +343,7 @@ describe 'DesignApp'
       end
       
       it 'should accept an object of properties as the second argument'
-        rule = new DesignApp.StyleRule('.test', { 'this': 'is', 'way': 'cool' })
+        rule = new DesignApp.StyleRule('.the_selector', { 'this': 'is', 'way': 'cool' })
         rule.properties.should.eql { 'this': 'is', 'way': 'cool' }
       end
       
