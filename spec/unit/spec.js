@@ -42,6 +42,7 @@ describe 'DesignApp'
   
     it 'should keep track of the selected tool'
       DesignApp.Toolbar.selectedTool.should_not.be_undefined
+      DesignApp.Toolbar.selectedTool.should.be_null
     end
   
     describe 'selecting a tool'
@@ -283,36 +284,67 @@ describe 'DesignApp'
   
   describe '.Style'
     
+    before_each
+      DesignApp.Style.rules = []
+    end
+  
     it 'should exist'
       DesignApp.Style.should_not.be_null
     end
     
-    it 'should have 0 rules'
-      DesignApp.Style.rules.should.be_empty
+    it 'should have a list of "rules"'
+      DesignApp.Style.rules.should.be_an Array
     end
     
+    it 'should add a rule to the list of rules'
+      rule = new DesignApp.StyleRule()
+      DesignApp.Style.addRule(rule)
+      DesignApp.Style.rules.should.eql [ rule ]
+    end
+  
+    it 'should not add the rule if it’s already in the rule list'
+      rule = new DesignApp.StyleRule()
+      DesignApp.Style.addRule(rule)
+      DesignApp.Style.addRule(rule)
+      DesignApp.Style.rules.should.eql [ rule ]    
+    end
     
-    
-    describe '.Rule'
+  end
+  
+  
       
-      it 'should exist'
-        DesignApp.Style.Rule.should_not.be_null
+  describe '.StyleRule'
+    
+    it 'should exist'
+      DesignApp.StyleRule.should_not.be_null
+    end
+    
+    describe 'when first creating'
+    
+      before_each
+        rule = new DesignApp.StyleRule()
       end
       
-      describe 'when first creating'
+      it 'should have a blank string for a "selector"'
+        rule.selector.should.be ''
+      end
       
-        before_each
-          rule = new DesignApp.Style.Rule()
-        end
-        
-        it 'should have a blank selector'
-          rule.selector.should.be ''
-        end
-        
-        it 'should have 0 properties'
-          rule.properties.should.eql []
-        end
+      it 'should have an empty "properties" object'
+        rule.properties.should.eql {}
+      end
+    
+    end
+    
+    describe 'creating with arguments'
       
+      it 'should accept a selector string as the first argument'
+        rule = new DesignApp.StyleRule('.awesome .cool sweet')
+        rule.selector.should.be '.awesome .cool sweet'
+      end
+      
+      it 'should accept an object of properties as the second argument'
+        rule = new DesignApp.StyleRule('.test', { 'this': 'is', 'way': 'cool' })
+        rule.properties.should.eql { 'this': 'is', 'way': 'cool' }
       end
       
     end
