@@ -85,7 +85,7 @@ describe 'DesignApp'
     describe 'initialized'
   
       before_each
-        tool = new DesignApp.Tool()
+        tool = new DesignApp.Tool
       end
     
       it 'should have a name'
@@ -138,82 +138,108 @@ describe 'DesignApp'
       DesignApp.Palette.should_not.be_null
     end
     
-    describe 'when first created'
+    describe 'when initialized'
 
       before_each
-        palette = new DesignApp.Palette()
+        palette = new DesignApp.Palette
       end
 
       it 'should have a name'
         palette.name.should.be ''
       end
       
+      it 'should have DEFAULTS'
+        palette.DEFAULTS.should.eql {}
+      end
+      
+      it 'should reset the object’s properties to the DEFAULTS when calling reset, yet not overwriting properties it shouldn’t'
+        the_defaults = { 
+          string: 'string', 
+          number: 10, 
+          bool:   true,
+          array:  [],
+          obj:    { nested: { stuff: 'is fun' } }
+        }
+        
+        palette.name     = 'Name'
+        palette.DEFAULTS = jQuery.extend({}, the_defaults)
+        palette.string   = 'blah blah'
+        palette.number   = 20
+        palette.bool     = false 
+        palette.array    = [ 1, 2, 3 ]
+        palette.obj      = {}
+        
+        palette.reset()
+        
+        palette.name.should.be 'Name'
+        palette.DEFAULTS.should.eql the_defaults
+        palette.string.should.be 'string'
+        palette.number.should.be 10
+        palette.bool.should.be true
+        palette.array.should.eql []
+        palette.obj.should.eql { nested: { stuff: 'is fun' } }
+      end
+
       it 'should have a container element'
         palette.container.should.be_an_instance_of jQuery
         palette.container.should.have_class('palette')
       end
       
-      it 'should run the createMarkup method'
+      it 'should call the createMarkup method'
         palette.should.receive('createMarkup')
-        palette.init();
+        palette.init()
       end
       
-      it 'should have a reset function'
-        palette.should.respond_to "reset"
+      it 'should call the reset method'
+        palette.should.receive('reset')
+        palette.init()
       end
-
+      
     end
-        
+    
+    
     
     describe '.Gradient'
       
       before_each
-        gradient = new DesignApp.Palette.Gradient();
+        gradient = new DesignApp.Palette.Gradient
       end
       
-      it 'should exist'
-        DesignApp.Palette.Gradient.should_not.be_null
+      it 'should extend Palette'
+        ( new DesignApp.Palette.Gradient ).should.be_an_instance_of DesignApp.Palette
       end
       
       it 'should have a name of "Gradient"'
         gradient.name.should.be 'Gradient'
       end
       
-      describe 'defaults'
+      describe 'DEFAULTS'
 
         it 'should have a type of "linear"'
-          gradient.type.should.be "linear"
+          gradient.DEFAULTS.type.should.be "linear"
         end
       
         it 'should have a start point'
-          gradient.start.should_not.be_null
-          gradient.start.color.should.be '#000'
-          gradient.start.pos.h.should.be 0
-          gradient.start.pos.v.should.be 0
+          gradient.DEFAULTS.start.should_not.be_null
+          gradient.DEFAULTS.start.color.should.be '#000'
+          gradient.DEFAULTS.start.pos.h.should.be 0
+          gradient.DEFAULTS.start.pos.v.should.be 0
         end
         
         it 'should have an end point'
-          gradient.end.should_not.be_null
-          gradient.end.color.should.be '#fff'
-          gradient.end.pos.h.should.be 0
-          gradient.end.pos.v.should.be 100
+          gradient.DEFAULTS.end.should_not.be_null
+          gradient.DEFAULTS.end.color.should.be '#fff'
+          gradient.DEFAULTS.end.pos.h.should.be 0
+          gradient.DEFAULTS.end.pos.v.should.be 100
         end
         
         it 'should have an empty list of color stops'
-          gradient.stops.should.eql []
+          gradient.DEFAULTS.stops.should.eql []
         end
         
       end
       
       describe 'resetting'
-        
-        it 'should remove any stops'
-          gradient.createAndAddStop(20, "#ccc")
-          gradient.createAndAddStop(20, "#ccc")
-          gradient.createAndAddStop(20, "#ccc")
-          gradient.reset()
-          gradient.stops.should.be_empty
-        end
         
         it 'should set the start horizontal position to 0'
           gradient.start.pos.h = 30
@@ -224,7 +250,18 @@ describe 'DesignApp'
         it 'should set the end horizontal position to 100'
           gradient.end.pos.h = 80
           gradient.reset()
-          gradient.end.pos.h.should.eql 100
+          gradient.end.pos.h.should.eql 0
+        end
+        
+        it 'should remove any stops'
+          gradient.createAndAddStop(10, "#111")
+          gradient.createAndAddStop(20, "#222")
+          gradient.createAndAddStop(30, "#333")
+          console.log(gradient.stops)
+          console.log(gradient.DEFAULTS.stops)
+          gradient.reset()
+          console.log(gradient.stops)
+          gradient.stops.should.be_empty
         end
         
       end
@@ -254,6 +291,7 @@ describe 'DesignApp'
           it 'should add a stop the list of stops'
             stop = gradient.createStop(20, "#ccc")
             gradient.addStop(stop)
+            gradient.stops[0].should.eql stop
             gradient.stops.length.should.eql 1
           end
           
@@ -274,6 +312,40 @@ describe 'DesignApp'
       end
       
       describe 'markup'
+      end
+      
+    end
+    
+    
+    
+    describe '.Layout'
+      
+      it 'should extend Palette'
+        ( new DesignApp.Palette.Layout ).should.be_an_instance_of DesignApp.Palette
+      end
+      
+      describe 'when initialized'
+        
+        before_each
+          layout = new DesignApp.Palette.Layout
+        end
+        
+        it 'should have a name of "Layout"'
+          layout.name.should.be 'Layout'
+        end
+        
+        describe 'DEFAULTS'
+        
+          it 'should have a default width'
+            layout.DEFAULTS.width.should.be 'auto'
+          end
+          
+          it 'should have a default height'
+            layout.DEFAULTS.height.should.be 'auto'
+          end
+          
+        end
+      
       end
       
     end
