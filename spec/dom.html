@@ -8,6 +8,7 @@
 		<link type="text/css" rel="stylesheet" href="./lib/jspec.css" />
 		<script type="text/javascript" src="../lib/jquery.js"></script>
 		<script type="text/javascript" src="../lib/js-oo/lib/oo.js"></script>
+		<script type="text/javascript" src="../lib/selectorgadget/vendor/diff/diff_match_patch.js"></script>
 		<script type="text/javascript" src="../lib/selectorgadget/lib/dom.js"></script>
 		<script type="text/javascript" src="./lib/jspec.js"></script>
 		<script type="text/javascript" src="./lib/jspec.jquery.js"></script>
@@ -19,6 +20,13 @@
 					.exec('unit/spec.js')
 					.run({ fixturePath: './fixtures' })
 					.report();
+				
+        // window.dph = new DomPredictionHelper();
+        // var selector = window.dph.predictCss(
+        //   $('#jspec-top, h2:first, #jspec, #jspec-bottom'),
+        //   $('#jspec-report')
+        // );
+        // console.log(selector);
 			};
 		</script>
 	</head>

@@ -110,7 +110,7 @@ describe 'DesignApp'
     describe '.Selector'
   
       before_each
-        selector = new DesignApp.Tool.Selector()        
+        selector = new DesignApp.Tool.Selector       
       end
     
       it 'should extend DesignApp.Tool'
@@ -125,7 +125,7 @@ describe 'DesignApp'
       it 'should have a reference to the DomPredictionHelper'
         selector.predictionHelper.should.be_an_instance_of(DomPredictionHelper)
       end
-    
+      
     end
   
   end
