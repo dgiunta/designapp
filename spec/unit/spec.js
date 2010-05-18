@@ -257,10 +257,7 @@ describe 'DesignApp'
           gradient.createAndAddStop(10, "#111")
           gradient.createAndAddStop(20, "#222")
           gradient.createAndAddStop(30, "#333")
-          console.log(gradient.stops)
-          console.log(gradient.DEFAULTS.stops)
           gradient.reset()
-          console.log(gradient.stops)
           gradient.stops.should.be_empty
         end
         
